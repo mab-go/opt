@@ -38,7 +38,7 @@ examples:
 	}
 }
 
-func fail(msgFmt string, v ... interface{}) {
+func fail(msgFmt string, v ...interface{}) {
 	_, err := fmt.Fprintf(os.Stderr, msgFmt+"\n", v...)
 	if err != nil {
 		panic(err)

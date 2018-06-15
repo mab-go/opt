@@ -128,12 +128,7 @@ func (g *generator) generate(item ConfigItem) error {
 	if err := g.generateSource(item.Name, item.Type); err != nil {
 		return err
 	}
-
-	if err := g.generateTests(item.Name, item.Type, item.TestValues); err != nil {
-		return err
-	}
-
-	return nil
+	return g.generateTests(item.Name, item.Type, item.TestValues)
 }
 
 func (g *generator) generateSource(n string, t string) error {
