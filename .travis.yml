@@ -1,0 +1,31 @@
+language: go
+
+go:
+    - 1.8
+    - 1.9
+    - "1.10"
+    - master
+
+go_import_path: gopkg.in/mab-go/opt.v0
+
+matrix:
+    # Allow failures on unstable development versions of Go.
+    allow_failures:
+        - go: master
+
+    # Don't wait for tests on unstable development versions to finish. Mark the
+    # tests "green" if the tests pass on stable versions of Go.
+    fast_finish: true
+
+before_script:
+    - go get -u gopkg.in/alecthomas/gometalinter.v2
+    - gometalinter.v2 --install
+
+# Run tests, generate a code coverage report, and run linters.
+script:
+    - tools/run-tests.sh
+    - gometalinter.v2 ./...
+
+# Upload the code coverage report to Codecov (codecov.io).
+after_success:
+    - tools/upload-coverage.sh
